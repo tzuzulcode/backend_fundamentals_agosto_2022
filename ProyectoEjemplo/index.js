@@ -1,6 +1,21 @@
 const express = require("express")
+const multer = require("multer")
 
 const app = express()
+
+
+// Middleware
+
+// Middleware para x-www-form-urlencoded
+app.use(express.urlencoded({
+    extended:true
+})) // use: usar middleware
+
+// Middleware json
+app.use(express.json())
+
+// Middleware form-data
+app.use(multer().none())
 
 // index, root, home
 app.get("/",function(peticion,respuesta){
@@ -10,9 +25,9 @@ app.get("/",function(peticion,respuesta){
 })
 
 app.post("/saludar",function(peticion,respuesta){
-    console.log(peticion.body)
+    const nombre = peticion.body.nombre
 
-    return respuesta.status(201).send("<h1>Hola</h1>")
+    return respuesta.status(201).send(`<h1>Hola, ${nombre}</h1>`)
 })
 
 // app.put()
@@ -23,5 +38,4 @@ app.listen(4000,function(){
     console.log("Listening on: http://localhost:4000")
 }) // callbacks
 
-
-//Actividad: Investigar acerca de: form-data, x-www-form-urlencoded, application/json
+// Actividad: Arquitectura de software y MVC
