@@ -1,14 +1,19 @@
 const express = require("express")
-const path = require("path") // Gestionar rutas de archivos
+// const {
+//     getHome,
+//     search
+// } = require("../controllers/flights")
+const Flights = require("../controllers/flights")
 
-console.log(__dirname) // Carpeta o ubicaición actual de este archivo
+
+// const Flights = require("../controllers/flights")
+// const flightsController = new Flights()
 
 const router = express.Router()
 
 // Arrow functions -> funciones flecha
-router.get("/flights", (req,res)=>{
-    return res.sendFile(path.join(__dirname,"..","views","index.html"))
-})
+router.get("/flights", Flights.getHome)
 
+router.get("/search", Flights.search)
 
 module.exports = router
