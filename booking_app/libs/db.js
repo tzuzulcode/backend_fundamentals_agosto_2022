@@ -16,17 +16,28 @@ const connection = async ()=>{
         user:dbUser,
         password:dbPassword,
         database:dbName,
-    })
+    }) // no-inmediato
 
     return conn
 }
 
 const query = async (sql,values)=>{
-    const result = await (await connection()).query(sql,values)
+    try {
+        const conn = await connection()
+        const result = await conn.query(sql,values)
 
-    console.log(result)
-
-    return result
+        // const result = await (await connection()).query(sql,values)
+        
+        return {
+            success:true,
+            data:result[0]
+        }
+    } catch (error) {
+        return {
+            success:false,
+            message:error.message
+        }
+    }
 }
 
 

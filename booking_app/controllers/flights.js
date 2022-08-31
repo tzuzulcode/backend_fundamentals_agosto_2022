@@ -1,6 +1,12 @@
 const getView = require("../helpers/getView")
+const Flight = require("../models/Flight")
 
-function getHome(_,res){
+async function getHome(_,res){
+    const flight = new Flight()
+    const result = await flight.getAll()
+
+    console.log(result)
+
     return getView(res,"index.html")
 }
 
