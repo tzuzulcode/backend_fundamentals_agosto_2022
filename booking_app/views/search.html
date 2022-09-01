@@ -8,5 +8,18 @@
 </head>
 <body>
     <h1>Search</h1>
+
+    <script>
+
+        async function getData(){
+            const response = await fetch("/api/flights")
+            const data = await response.json()
+            console.log(data)
+        }
+
+        getData()
+
+        // Reto: Realizarlo con promises (then, catch)
+    </script>
 </body>
 </html>
