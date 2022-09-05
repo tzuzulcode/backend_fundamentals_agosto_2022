@@ -32,3 +32,6 @@ app.listen(port,function(){
     // console.log("Listening on: http://localhost:"+port)
     console.log(`Listening on: http://localhost:${port}`)
 })
+
+
+// Reto: Investigar qué son y cómo se gestionan los archivos
