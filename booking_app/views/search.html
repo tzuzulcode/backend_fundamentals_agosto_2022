@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Search</h1>
 
     <script>
+      // async function getData(){
+      //     const response = await fetch("/api/flights")
+      //     const data = await response.json()
+      //     console.log(data)
+      // }
 
-        async function getData(){
-            const response = await fetch("/api/flights")
-            const data = await response.json()
-            console.log(data)
-        }
+      // getData()
 
-        getData()
+      // Reto: Realizarlo con promises (then, catch)
 
-        // Reto: Realizarlo con promises (then, catch)
+      fetch('/api/flights')
+        .then(function (res) {
+          return res.json()
+        })
+        .then(function (data) {
+          console.log(data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     </script>
-</body>
+  </body>
 </html>
