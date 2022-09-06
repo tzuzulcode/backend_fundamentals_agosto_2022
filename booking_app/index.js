@@ -4,6 +4,7 @@ const { port } = require("./config")
 // const config = require("./config")
 
 const flights = require("./routes/flights")
+const auth = require("./routes/auth")
 
 const app = express()
 
@@ -17,9 +18,13 @@ app.use(express.urlencoded({
 // Middleware json
 app.use(express.json())
 
+// Middleware para archivos estáticos:
+// app.use('/static',express.static(__dirname+'/static')) //En nuestro proyecto no es necesario realizarlo
+app.use('/static',express.static('static'))
 
 // Routes
 app.use(flights)
+app.use(auth)
 
 // index, root, home
 app.get("/",function(peticion,respuesta){
