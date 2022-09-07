@@ -8,12 +8,14 @@
 </head>
 <body>
     <h1>Sign Up</h1>
-    <form>
-        <input type="text" name="name" placeholder="Name...">
-        <input type="email" name="email" placeholder="Email...">
-        <input type="password" name="password" placeholder="Password...">
-        <input type="password" name="password_confirmation" placeholder="Password confirmation...">
+    <form id="signUpForm">
+        <input type="text" name="name" placeholder="Name..." required>
+        <input type="email" name="email" placeholder="Email..." required>
+        <input type="password" name="password" placeholder="Password..." required>
+        <input type="password" name="password_confirmation" placeholder="Password confirmation..." required>
         <button>Sign up</button>
     </form>
+
+    <script src="/static/js/signup.js"></script>
 </body>
 </html>

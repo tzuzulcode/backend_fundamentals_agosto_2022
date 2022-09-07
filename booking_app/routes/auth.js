@@ -4,12 +4,12 @@ const AuthController = require("../controllers/auth")
 const router = Router()
 
 // Obtener los formularios:
-router.get("/auth/login",AuthController.login)
-router.get("/auth/signup",AuthController.signup)
+router.get("/auth/login",AuthController.getLoginView)
+router.get("/auth/signup",AuthController.getSignUpView)
 
 // Recibir data de los usuarios
-router.get("/api/auth/login",AuthController.signup)
-router.get("/api/auth/signup",AuthController.signup)
+router.post("/api/auth/login",AuthController.login)
+router.post("/api/auth/signup",AuthController.signup)
 
 
 module.exports = router
