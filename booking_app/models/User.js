@@ -36,8 +36,51 @@ class User{
         }
     }
 
+    validateLogin(password){
+        if(!this.email || !this.password){
+            return {
+                success:false,
+                message:"Debe rellenar todos los campos"
+            }
+        }
+
+        const passwordUser = bcrypt.compare(password, this.password);
+
+        if(this.password!==passwordUser){
+            return {
+                success:false,
+                message:"Las contraseñas no coinciden"
+            }
+        }
+
+        return {
+            success:true,
+            data:{
+                email:this.email,
+            }
+        }
+    }
+
     static async create(data){
         const result = await query("INSERT INTO users(??) VALUES(?)",[
+            Object.keys(data),
+            Object.values(data)
+        ])
+
+        if(result.success){
+            // Retiramos contraseña
+            delete data.password
+            return {
+                success:true,
+                data:data
+            }
+        }
+
+        return result
+    }
+
+    static async searchUser(data){
+        const result = await query("SELECT * FROM users WHERE email = ? AND password = ?",[
             Object.keys(data),
             Object.values(data)
         ])
