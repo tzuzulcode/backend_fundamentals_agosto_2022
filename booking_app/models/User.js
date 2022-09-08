@@ -36,28 +36,24 @@ class User{
         }
     }
 
-    validateLogin(password){
-        if(!this.email || !this.password){
+    // password: La contraseña del formulario
+    // user: La consulta del usuario
+    static validateCredentials(password,user){
+
+        const passwordUser = bcrypt.compareSync(password, user.password);
+
+        if(!passwordUser){
             return {
                 success:false,
-                message:"Debe rellenar todos los campos"
+                message:"Las credenciales son incorrectas"
             }
         }
 
-        const passwordUser = bcrypt.compare(password, this.password);
-
-        if(this.password!==passwordUser){
-            return {
-                success:false,
-                message:"Las contraseñas no coinciden"
-            }
-        }
-
+        delete user.password
         return {
             success:true,
-            data:{
-                email:this.email,
-            }
+            message:"Las credenciales coinciden",
+            data:user
         }
     }
 
@@ -79,22 +75,20 @@ class User{
         return result
     }
 
-    static async searchUser(data){
-        const result = await query("SELECT * FROM users WHERE email = ? AND password = ?",[
-            Object.keys(data),
-            Object.values(data)
-        ])
+    static async getUserByEmail(email){
+        const result = await query("SELECT * FROM users WHERE email = ?",[email])
 
-        if(result.success){
-            // Retiramos contraseña
-            delete data.password
+        if(result.success && result.data[0]){
             return {
                 success:true,
-                data:data
+                data:result.data[0]
             }
         }
 
-        return result
+        return {
+            success:false,
+            message:"Correo no registrado"
+        }
     }
 }
 

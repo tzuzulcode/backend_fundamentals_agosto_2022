@@ -26,19 +26,21 @@ class Auth{
 
     }
 
+    // Login: API -> json
     static async login(req,res){
         const data = req.body
-        const user = await User.searchUser(data)
-        if (!user) {
-            return getView(res,"auth/signup.html")
+        const user = await User.getUserByEmail(data.email)
+        if (!user.success) {
+            // Redirección
+            // return getView(res,"auth/signup.html")
+            return res.status(400).json(user)
         }
-        const validation = user.validateLogin(data.password)
-        if(validation.success){
-            return res.status(result.success?200:400).json(result)
-        }
+        const validation = User.validateCredentials(data.password,user.data)
+        
+        return res.status(validation.success?200:400).json(validation)
     }
 
-    // Reto: Implementar login
+    // Reto: Investigar acerca de las cookies, local storage y session storage
     
 }
 
