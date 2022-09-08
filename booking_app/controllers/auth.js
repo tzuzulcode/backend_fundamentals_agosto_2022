@@ -26,6 +26,18 @@ class Auth{
 
     }
 
+    static async login(req,res){
+        const data = req.body
+        const user = await User.searchUser(data)
+        if (!user) {
+            return getView(res,"auth/signup.html")
+        }
+        const validation = user.validateLogin(data.password)
+        if(validation.success){
+            return res.status(result.success?200:400).json(result)
+        }
+    }
+
     // Reto: Implementar login
     
 }
